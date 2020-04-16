@@ -6,8 +6,8 @@ router.get("/test", (req, res) => {
 });
 
 router.get("/testUser", (req, res) => {
-    const newUser = new Utilizador(0, "Rui","fig@merda.pt","chato", false, "www.link.org", "96966969");
-    res.json(newUser)
+   Utilizador.getAllUtilizadores();
+   res.json("Esta na consola");
 });
 
 
