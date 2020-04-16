@@ -10,14 +10,10 @@ class Utilizador{
         this.foto = foto;
         this.numero_tel = numero_tel;
     }
-    //WIP
+
     static getAllUtilizadores(){
         const sql = "SELECT * FROM utilizador";
-        Database.query(sql, function (error, results, fields) {
-            if (error) throw error;
-            console.log('The solution is: ', results);
-        });
-      
+        return Database.query(sql);
     }
 }
 module.exports = Utilizador;

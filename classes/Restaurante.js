@@ -1,3 +1,5 @@
+
+
 class Restaurante{
     constructor(id,nome,password,foto_perfil,informacao,morada,aprovacao,cod_postal,disponibilidade,email){
         this.id = id;
@@ -11,5 +13,12 @@ class Restaurante{
         this.disponibilidade=disponibilidade;
         this.email=email;
     }
+
+    static getAllRestaurantesCardInfo(){
+    }
+
 }
+
+
+
 module.exports =Restaurante;
