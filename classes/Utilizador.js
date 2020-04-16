@@ -20,5 +20,4 @@ class Utilizador{
       
     }
 }
-
 module.exports = Utilizador;
