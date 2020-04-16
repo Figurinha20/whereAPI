@@ -1,0 +1,12 @@
+{
+  "name": "whereatapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "whereAPI.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node whereAPI.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
