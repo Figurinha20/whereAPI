@@ -9,5 +9,4 @@ class Utilizador{
         this.numero_tel = numero_tel;
     }
 }
-
 module.exports = Utilizador;
