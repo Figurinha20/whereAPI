@@ -10,7 +10,7 @@ const config = require("./config.json");
 const userRouter = require("./routes/user-router.js");
 const testRouter = require("./routes/test-router.js");
 const registerRouter= require("./routes/register-router.js");
-
+const reservasRouter= require("./routes/reservas-router.js");
 
 const app=express();
 
@@ -25,6 +25,7 @@ app.use(cors()); //cors para Cross Origin Resource Sharinng entre o API e o fron
 app.use(userRouter);
 app.use(testRouter);
 app.use(registerRouter);
+app.use(reservasRouter);
 
 
 app.listen(config.port, () => console.log(config.serverStartMessage, config.host, config.port));
