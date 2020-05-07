@@ -8,8 +8,4 @@ function sanitas(req, res, next) {
 
     next();
 }
-console.log(bcrypt.hashSync("a",10),bcrypt.hashSync("passswordgrande",10).length);
 module.exports.sanitas = sanitas;
-
-
-

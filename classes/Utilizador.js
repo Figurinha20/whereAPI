@@ -19,21 +19,19 @@ class Utilizador{
         email=Database.escape(email);
         password=bcrypt.hashSync(Database.escape(password),SALT_ROUNDS);
         const sql = "INSERT INTO utilizador (user_name, email, password, administrador, foto) VALUES (?,?,?,?,?);";
-        return Utilizador.find(email).then(user=>{ //verificar se existe utilizador para esse email
-            if(user===undefined){//se o user com o email nao existir criar conta
+        return Utilizador.existsWithEmail(email).then(exists=>{ //verificar se existe utilizador para esse email
+            if(exists===false){//se o user com o email nao existir criar conta
                 return Database.query(sql,[user_name, email, password, false, "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"]);
             }else{ // nao cria conta
-                return "Error creating account";
+                return "Conta já Existente";
             }
         });
     }   
 
-    static find(email){
-        email=Database.escape(email);
+    static existsWithEmail(email){
         const sql = "SELECT * FROM utilizador WHERE email = ?";
         return Database.query(sql, [email]).then(res=>{
-            const user=res[0];
-            return user;
+            return res.length>0 || res.length===undefined;
         });
     }
 
@@ -77,6 +75,7 @@ class Utilizador{
         const sql = "SELECT * FROM utilizador";
         return Database.query(sql);
     }
+
 }
 module.exports = Utilizador;
 
