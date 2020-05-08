@@ -2,7 +2,7 @@ const Router=require("express").Router;
 const bcrypt=require("bcrypt");
 const Database=require("../database/database");
 const Utilizador=require("../classes/Utilizador");
-const Restaurante=require("../classes/Restaurante")
+const Restaurante=require("../classes/Restaurante");
 var router=Router();
 
 router.post("/register", (req, res) => {
@@ -21,6 +21,10 @@ router.post("/registerRestaurant", (req, res) => {
 
 router.get("/testUser", (req, res) => {
     Utilizador.getAllUtilizadores().then(results=>res.json(results));
+});
+
+router.get("/testRestaurant", (req, res) => {
+    Restaurante.getAllRestaurantes().then(results=>res.json(results));
 });
 
 module.exports=router;
