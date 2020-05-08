@@ -73,11 +73,11 @@ ENGINE = InnoDB;
 -- Table `whereAt`.`reserva`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `DATABASE_NAME`.`reserva` (
-  `data_hora_reservada` VARCHAR(16) NOT NULL,
+  `data_hora_reservada` VARCHAR(32) NOT NULL,
   `id_utilizador` INT(9) NOT NULL,
   `id_restaurante` INT(7) NOT NULL,
   `id_mesa` INT(3) NOT NULL,
-  `data_hora` VARCHAR(16) NULL,
+  `data_hora` VARCHAR(32) NULL,
   `confirmacao` CHAR(1) NULL,
   `presenca` TINYINT NULL,
   PRIMARY KEY (`data_hora_reservada`, `id_utilizador`, `id_restaurante`, `id_mesa`))
