@@ -1,7 +1,8 @@
 const Reserva=require("../classes/Reserva");
 const Router=require("express").Router;
 var router=Router();
-
+//obrigado Rui és lindo :)
+//o meu PC é uma porcaria
 router.get("/nonAvailableTablesIds", (req, res) => {
     Reserva.findNonAvailableTablesIds(req.body.data_hora_reservada, req.body.id_restaurante).then(tableIds =>{
         res.json(tableIds)
