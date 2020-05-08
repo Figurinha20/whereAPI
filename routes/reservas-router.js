@@ -5,12 +5,38 @@ var router=Router();
 router.get("/nonAvailableTablesIds", (req, res) => {
     Reserva.findNonAvailableTablesIds(req.body.data_hora_reservada, req.body.id_restaurante).then(tableIds =>{
         res.json(tableIds)
-    });
+    }).catch(err => res.json(err));
     
 });
 
-router.get("/testUser", (req, res) => {
-    Utilizador.getAllUtilizadores().then(results=>res.json(results));
+//CREATE
+router.post("/reserva", (req, res) => {
+    Reserva.create(req.body.data_hora_reservada, req.body.id_utilizador, req.body.id_restaurante, req.body.id_mesa,
+         req.body.data_hora).then(serverAnswer =>{  
+         console.log(req.body);
+             
+         res.json(serverAnswer);
+    }).catch(err => res.json(err));
+});
+
+//READ
+router.get("/reserva", (req, res) => {
+    Reserva.getAllReservas().then(bookingHistory =>{ res.json(bookingHistory)}).catch(err => res.json(err));
+});
+
+//UPDATE
+router.put("/reserva", (req, res) => {
+    Reserva.update(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora, newConfirmacao, newPresenca)
+    .then(update =>{ res.json(update)})
+    .catch(err => res.json(err));
+    
+});
+//DELETE
+router.delete("/reserva", (req, res) => {
+    Reserva.deleteReserva(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora)
+    .then(deleteLog =>{ res.json(deleteLog)})
+    .catch(err => res.json(err));
+    
 });
 
 module.exports=router;
