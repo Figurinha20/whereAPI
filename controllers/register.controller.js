@@ -1,8 +1,8 @@
 const Router=require("express").Router;
 const bcrypt=require("bcrypt");
 const Database=require("../database/database");
-const Utilizador=require("../classes/Utilizador");
-const Restaurante=require("../classes/Restaurante");
+const Utilizador=require("../models/utilizador.model");
+const Restaurante=require("../models/restaurante.model");
 var router=Router();
 
 router.post("/register", (req, res) => {

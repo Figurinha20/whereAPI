@@ -1,4 +1,4 @@
-const Reserva=require("../classes/Reserva");
+const Reserva=require("../models/reserva.model");
 const Router=require("express").Router;
 var router=Router();
 //obrigado Rui és lindo :)

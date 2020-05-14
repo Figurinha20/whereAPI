@@ -1,5 +1,5 @@
-const Utilizador=require("../classes/Utilizador");
-const Restaurante=require("../classes/Restaurante");
+const Utilizador=require("../models/utilizador.model");
+const Restaurante=require("../models/restaurante.model");
 const Router=require("express").Router;
 var router=Router();
 
