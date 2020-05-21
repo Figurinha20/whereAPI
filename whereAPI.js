@@ -7,10 +7,7 @@ const sanitas = require("./middlewares/sanitas.js");
 
 const config = require("./config.json");
 //routes
-const userRouter = require("./routes/user-router.js");
-const testRouter = require("./routes/test-router.js");
-const registerRouter= require("./routes/register-router.js");
-const reservasRouter= require("./routes/reservas-router.js");
+const UtilizadorRouter = require("./routes/utilizador.router");
 
 const app=express();
 
@@ -22,10 +19,7 @@ app.use(cors()); //cors para Cross Origin Resource Sharinng entre o API e o fron
 // app.use(sanitas.sanitas); //sanitizer para não deixar código passar nos inputs
 
 // ################ ROUTES ##############################
-app.use(userRouter);
-app.use(testRouter);
-app.use(registerRouter);
-app.use(reservasRouter);
+app.use(UtilizadorRouter)
 
 
 app.listen(config.port, () => console.log(config.serverStartMessage, config.host, config.port));

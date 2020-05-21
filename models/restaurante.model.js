@@ -1,6 +1,6 @@
 const Database=require("../database/database");
 const bcrypt=require("bcrypt");
-const Codigopostal=require("./Codigopostal")
+const Codigopostal=require("./codigopostal.model")
 
 const SALT_ROUNDS = 10;
 

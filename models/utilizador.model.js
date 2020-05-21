@@ -44,9 +44,9 @@ class Utilizador{
             const user=res[0];
             if(user){
                 if(bcrypt.compareSync(password, user.password)){//comparar pass encryptada com a escrita pelo utilizador
-                    return true;//true if credentials match
+                    return user;//true if credentials match
                 }else{
-                    return false;//false if credentials no match
+                    return undefined;//false if credentials no match
                 };
             }else{
                 console.error("CANT FIND USER FOR THAT EMAIL & PASS");
@@ -55,22 +55,37 @@ class Utilizador{
         });
     }
 
-    // static update(){
-    //     const sql = "SELECT * FROM utilizador WHERE user_name = ? AND password = ?";
-    //     return Database.query(sql, [user_name, password]).then(res=>{
-    //         return res.length>0 ? res : undefined;
-    //     });
-    // }
+    static update(id_utilizador, user_name, email, foto, numero_tel){
+        id_utilizador=Database.escape(id_utilizador);
+        user_name=Database.escape(user_name);
+        email=Database.escape(email);
+        foto=Database.escape(foto);
+        numero_tel=Database.escape(numero_tel);
+        
+        if (numero_tel == "NULL") numero_tel = undefined
 
-    // static delete(){
-    //     const sql = "SELECT * FROM utilizador WHERE user_name = ? AND password = ?";
-    //     return Database.query(sql, [user_name, password]).then(res=>{
-    //         return res.length>0 ? res : undefined;
-    //     });
-    // }
+        const sql = "UPDATE utilizador SET user_name = ?, email = ?, foto = ?, numero_tel = ? WHERE id_utilizador = ?";
+        return Database.query(sql, [user_name, email, foto, numero_tel, id_utilizador]).then(res=>{
+            if(res.affectedRows > 0){
+                return "Mudanças Salvas"
+            }
+            else{return "Sem Mudanças"}
+        })
+    }
+
+    static delete(id_utilizador){
+        id_utilizador=Database.escape(id_utilizador);
+
+        const sql = "DELETE FROM utilizador WHERE id_utilizador = ?";
+        return Database.query(sql, [id_utilizador]).then(res=>{
+            if (res.affectedRows > 0){
+                return "Utilizador Removido"
+            }
+            else{return "Utilizador Não Existente"}
+        })
+    }
 
     
-
     static getAllUtilizadores(){
         const sql = "SELECT * FROM utilizador";
         return Database.query(sql);
