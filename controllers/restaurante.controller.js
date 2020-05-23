@@ -18,7 +18,7 @@ exports.post = (req, res, next) => {
 }
 
 exports.put = (req, res, next) => {
-    update(req.body.id_restaurante, req.body.foto_perfil, req.body.informacao, req.body.disponibilidade).then(result=>{
+    update(req.body.id_restaurante, req.body.foto_perfil, req.body.informacao, req.body.disponibilidade, req.body.aprovacao).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
@@ -84,14 +84,15 @@ function login(email, password){
     });
 }
 
-function update(id_restaurante, foto_perfil, informacao, disponibilidade){
+function update(id_restaurante, foto_perfil, informacao, disponibilidade, aprovacao){
     id_restaurante=Database.escape(id_restaurante);
     foto_perfil=Database.escape(foto_perfil);
     informacao=Database.escape(informacao);
     disponibilidade=Database.escape(disponibilidade);
+    aprovacao=Database.escape(aprovacao);
 
-    const sql = "UPDATE restaurante SET foto_perfil = ?, informacao = ?, disponibilidade = ? WHERE id_restaurante = ?";
-    return Database.query(sql, [foto_perfil, informacao, disponibilidade, id_restaurante]).then(res=>{
+    const sql = "UPDATE restaurante SET foto_perfil = ?, informacao = ?, disponibilidade = ?, aprovacao = ? WHERE id_restaurante = ?";
+    return Database.query(sql, [foto_perfil, informacao, disponibilidade, aprovacao, id_restaurante]).then(res=>{
         if(res.affectedRows > 0){
             return "Mudanças Salvas"
         }
