@@ -111,7 +111,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `DATABASE_NAME`.`foto` (
   `id_foto` INT(7) NOT NULL AUTO_INCREMENT,
   `id_restaurante` INT(7) NOT NULL,
-  `link_foto` VARCHAR(45) NULL,
+  `link_foto` VARCHAR(256) NULL,
   PRIMARY KEY (`id_foto`, `id_restaurante`))
 ENGINE = InnoDB;
 
