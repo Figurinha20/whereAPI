@@ -11,6 +11,7 @@ const UtilizadorRouter = require("./routes/utilizador.router");
 const RestauranteRouter = require("./routes/restaurante.router");
 const FotoRouter = require("./routes/foto.router");
 const MesaRouter = require("./routes/mesa.router");
+const PratoRouter = require ("./routes/prato.router");
 
 const app=express();
 
@@ -26,6 +27,7 @@ app.use(UtilizadorRouter)
 app.use(RestauranteRouter)
 app.use(FotoRouter)
 app.use(MesaRouter)
+app.use(PratoRouter)
 
 
 app.listen(config.port, () => console.log(config.serverStartMessage, config.host, config.port));
