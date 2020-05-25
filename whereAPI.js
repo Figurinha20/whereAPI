@@ -12,6 +12,7 @@ const RestauranteRouter = require("./routes/restaurante.router");
 const FotoRouter = require("./routes/foto.router");
 const MesaRouter = require("./routes/mesa.router");
 const PratoRouter = require ("./routes/prato.router");
+const ReservaRouter = require("./routes/reserva.router");
 
 const app=express();
 
@@ -28,6 +29,6 @@ app.use(RestauranteRouter)
 app.use(FotoRouter)
 app.use(MesaRouter)
 app.use(PratoRouter)
-
+app.use(ReservaRouter)
 
 app.listen(config.port, () => console.log(config.serverStartMessage, config.host, config.port));
