@@ -6,6 +6,7 @@ const dbConfig = require("../db-config.json");   //Importar configuração da ba
 //#############//############# VARIAVEIS ESTATICAS #############//#############
 const DATABASE_CODE_PATH = path.resolve("./database/databaseCode.sql");
 const DATABASE_TEMPLATE_STRING="DATABASE_NAME";
+const DATABASE_INSERTS_PATH = path.resolve("./database/databaseInserts.sql")
 
 //#############//############# HELPFULL FUNCTIONS #############//#############
 String.prototype.replaceAll = function (stringToFind, stringToReplace) {
@@ -56,13 +57,16 @@ function createDatabase(){
 };
 
 function fillDatabase(){
-    
+    const sql=fs.readFileSync(DATABASE_INSERTS_PATH).toString();
+    console.log("Filling Database");
+    return Database.query(sql);
 };
 
 function restart(){
     return destroyDatabase()    //DESTROY DB
     .then(result1=>{createDatabase();}) //CREATE DB
-    .then(result2=>{Database.destroy()}); //DESTROY CONNECTION TO DB
+    .then(result2=>{return fillDatabase();}) //Fill DB
+    .then(result3=>{Database.destroy()}); //DESTROY CONNECTION TO DB
 }
 
 module.exports.restart=restart;
