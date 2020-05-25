@@ -9,7 +9,8 @@ const config = require("./config.json");
 //routes
 const UtilizadorRouter = require("./routes/utilizador.router");
 const RestauranteRouter = require("./routes/restaurante.router");
-const FotoRouter = require("./routes/foto.router")
+const FotoRouter = require("./routes/foto.router");
+const MesaRouter = require("./routes/mesa.router");
 
 const app=express();
 
@@ -24,6 +25,7 @@ app.use(cors()); //cors para Cross Origin Resource Sharinng entre o API e o fron
 app.use(UtilizadorRouter)
 app.use(RestauranteRouter)
 app.use(FotoRouter)
+app.use(MesaRouter)
 
 
 app.listen(config.port, () => console.log(config.serverStartMessage, config.host, config.port));

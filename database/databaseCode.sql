@@ -63,7 +63,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `DATABASE_NAME`.`mesa` (
   `id_mesa` INT(3) NOT NULL AUTO_INCREMENT,
-  `id_restaurante` INT(7) NOT NULL,
+  `id_restaurante` INT(16) NOT NULL,
   `n_cadeiras` INT(3) NULL,
   PRIMARY KEY (`id_mesa`, `id_restaurante`))
 ENGINE = InnoDB;
