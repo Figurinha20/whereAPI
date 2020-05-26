@@ -57,7 +57,7 @@ function create(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, dat
     id_restaurante = Database.escape(id_restaurante);
     id_mesa = Database.escape(id_mesa);
     data_hora = Database.escape(data_hora);
-    const sql = "INSERT INTO reserva (data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora, confirmacao, presenca) VALUES (?,?,?,?,?,false,false);";
+    const sql = "INSERT INTO reserva (data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora, confirmacao, presenca) VALUES (?,?,?,?,?,'p',false);";
 
     return find(data_hora_reservada, id_restaurante, id_mesa).then(reserva => {
         //verificar se existe reserva confirmada para  
