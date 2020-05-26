@@ -33,7 +33,7 @@ exports.getAllUtilizadorReservas = (req, res, next) => {
 
 //UPDATE
 exports.put = (req, res, next) => {
-    update(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora, newConfirmacao, newPresenca)
+    update(req.body.data_hora_reservada, req.body.id_utilizador, req.body.id_restaurante, req.body.id_mesa, req.body.data_hora, req.body.newConfirmacao, req.body.newPresenca)
         .then(update => {
             res.json(update)
         })
@@ -42,7 +42,7 @@ exports.put = (req, res, next) => {
 };
 //DELETE
 exports.delete = (req, res, next) => {
-    deleteReserva(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora)
+    deleteReserva(req.body.data_hora_reservada, req.body.id_utilizador, req.body.id_restaurante, req.body.id_mesa, req.body.data_hora)
         .then(deleteLog => {
             res.json(deleteLog)
         })
@@ -77,7 +77,7 @@ function update(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, dat
     id_restaurante = Database.escape(id_restaurante);
     id_mesa = Database.escape(id_mesa);
     data_hora = Database.escape(data_hora);
-    const sql = "UPDATE reserva SET confirmacao = ?, presenca = ? WHERE data_hora_reservada = ?, id_utilizador = ?, id_restaurante = ?, id_mesa = ?, data_hora = ?;";
+    const sql = "UPDATE reserva SET confirmacao = ?, presenca = ? WHERE data_hora_reservada = ? AND id_utilizador = ? AND id_restaurante = ? AND id_mesa = ? AND data_hora = ?";
 
     return Database.query(sql, [newConfirmacao, newPresenca, data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora]);
 
@@ -89,7 +89,7 @@ function deleteReserva(data_hora_reservada, id_utilizador, id_restaurante, id_me
     id_restaurante = Database.escape(id_restaurante);
     id_mesa = Database.escape(id_mesa);
     data_hora = Database.escape(data_hora);
-    const sql = "DELETE FROM reserva WHERE data_hora_reservada = ?, id_utilizador = ?, id_restaurante = ?, id_mesa = ?, data_hora = ?;";
+    const sql = "DELETE FROM reserva WHERE data_hora_reservada = ? AND id_utilizador = ? AND id_restaurante = ? AND id_mesa = ? AND data_hora = ?;";
 
     return Database.query(sql, [data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora]);
 }

@@ -7,4 +7,3 @@ router.post("/foto", FotoControllers.post);
 router.delete("/foto", FotoControllers.delete);
 
 module.exports=router;
-
