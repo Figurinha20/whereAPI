@@ -2,10 +2,10 @@ const Router=require("express").Router;
 const UtilizadorController=require("../controllers/utilizador.controller")
 var router=Router();
 
-router.get("/utilizador", UtilizadorController.get);
-router.post("/utilizador", UtilizadorController.post);
-router.put("/utilizador/:id_utilizador", UtilizadorController.put);
-router.delete("/utilizador/:id_utilizador", UtilizadorController.delete);
+router.get("/utilizadores", UtilizadorController.get);
+router.post("/utilizadores", UtilizadorController.post);
+router.put("/utilizadores/:id_utilizador", UtilizadorController.put);
+router.delete("/utilizadores/:id_utilizador", UtilizadorController.delete);
 
 module.exports=router;
 

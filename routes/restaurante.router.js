@@ -2,10 +2,10 @@ const Router=require("express").Router;
 const RestauranteControllers=require("../controllers/restaurante.controller")
 var router=Router();
 
-router.get("/restaurante", RestauranteControllers.get);
-router.post("/restaurante", RestauranteControllers.post);
-router.put("/restaurante/:id_restaurante", RestauranteControllers.put);
-router.delete("/restaurante/:id_restaurante", RestauranteControllers.delete);
+router.get("/restaurantes", RestauranteControllers.get);
+router.post("/restaurantes", RestauranteControllers.post);
+router.put("/restaurantes/:id_restaurante", RestauranteControllers.put);
+router.delete("/restaurantes/:id_restaurante", RestauranteControllers.delete);
 
 module.exports=router;
 
