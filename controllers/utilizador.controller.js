@@ -18,13 +18,13 @@ exports.post = (req, res, next) => {
 }
 
 exports.put = (req, res, next) => {
-    update(req.body.id_utilizador, req.body.user_name, req.body.email, req.body.foto, req.body.numero_tel).then(result=>{
+    update(req.params.id_utilizador, req.body.user_name, req.body.email, req.body.foto, req.body.numero_tel).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 exports.delete = (req, res, next) => {
-    deleteUtilizador(req.body.id_utilizador).then(result=>{
+    deleteUtilizador(req.params.id_utilizador).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
@@ -71,7 +71,7 @@ function login(email, password){
 }
 
 function update(id_utilizador, user_name, email, foto, numero_tel){
-    id_utilizador=Database.escape(id_utilizador);
+    
     user_name=Database.escape(user_name);
     email=Database.escape(email);
     foto=Database.escape(foto);
@@ -89,7 +89,7 @@ function update(id_utilizador, user_name, email, foto, numero_tel){
 }
 
 function deleteUtilizador(id_utilizador){
-    id_utilizador=Database.escape(id_utilizador);
+    
 
     const sql = "DELETE FROM utilizador WHERE id_utilizador = ?";
     return Database.query(sql, [id_utilizador]).then(res=>{

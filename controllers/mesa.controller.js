@@ -3,25 +3,24 @@ const Database = require("../database/database");
 
 
 exports.get = (req, res, next) => {
-    getRestaurantMesas(req.body.id_restaurante).then(result=>{
+    getRestaurantMesas(req.params.id_restaurante).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 exports.post = (req, res, next) => {
-    createMesa(req.body.id_restaurante, req.body.n_cadeiras).then(result=>{
+    createMesa(req.params.id_restaurante, req.body.n_cadeiras).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 exports.delete = (req, res, next) => {
-    deleteMesa(req.body.id_mesa).then(result=>{
+    deleteMesa(req.params.id_mesa).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 function createMesa(id_restaurante, n_cadeiras){ //Adicionar mesas a um determinado restaurante
-    id_restaurante=Database.escape(id_restaurante);
     n_cadeiras=Database.escape(n_cadeiras);
 
     const sql = `INSERT INTO mesa (id_restaurante, n_cadeiras) VALUES (?,?);`
@@ -34,7 +33,6 @@ function createMesa(id_restaurante, n_cadeiras){ //Adicionar mesas a um determin
 }
 
 function getRestaurantMesas(id_restaurante){ //Receber todas as mesas de um determinado restaurante
-    id_restaurante=Database.escape(id_restaurante);
 
     const sql = "SELECT * FROM mesa WHERE id_restaurante = ?";
     return Database.query(sql, [id_restaurante]).then(res=>{
@@ -43,7 +41,6 @@ function getRestaurantMesas(id_restaurante){ //Receber todas as mesas de um dete
 }
 
 function deleteMesa(id_mesa){
-    id_mesa=Database.escape(id_mesa);
 
     const sql = "DELETE FROM mesa WHERE id_mesa = ?;"
     return Database.query(sql, [id_mesa]).then(res=>{

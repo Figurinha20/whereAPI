@@ -2,7 +2,7 @@ const Database = require("../database/database");
 //obrigado Rui és lindo :)
 //o meu PC é uma porcaria
 exports.getNonAvailabeTablesIds = (req, res, next) => {
-    findNonAvailableTablesIds(req.body.data_hora_reservada, req.body.id_restaurante).then(tableIds => {
+    findNonAvailableTablesIds(req.params.data_hora_reservada, req.params.id_restaurante).then(tableIds => {
         res.json(tableIds)
     }).catch(err => res.json(err));
 
@@ -20,20 +20,20 @@ exports.post = (req, res, next) => {
 
 //READ
 exports.getAllRestauranteReservas = (req, res, next) => {
-    getAllRestauranteReservas(req.body.id_restaurante).then(bookingHistory => {
+    getAllRestauranteReservas(req.params.id_restaurante).then(bookingHistory => {
         res.json(bookingHistory)
     }).catch(err => res.json(err));
 };
 
 exports.getAllUtilizadorReservas = (req, res, next) => {
-    getAllUtilizadorReservas(req.body.id_utilizador).then(bookingHistory => {
+    getAllUtilizadorReservas(req.params.id_utilizador).then(bookingHistory => {
         res.json(bookingHistory)
     }).catch(err => res.json(err));
 };
 
 //UPDATE
 exports.put = (req, res, next) => {
-    update(req.body.data_hora_reservada, req.body.id_utilizador, req.body.id_restaurante, req.body.id_mesa, req.body.data_hora, req.body.newConfirmacao, req.body.newPresenca)
+    update(req.params.data_hora_reservada, req.params.id_utilizador, req.params.id_restaurante, req.body.id_mesa, req.params.data_hora, req.body.newConfirmacao, req.body.newPresenca)
         .then(update => {
             res.json(update)
         })
@@ -42,7 +42,7 @@ exports.put = (req, res, next) => {
 };
 //DELETE
 exports.delete = (req, res, next) => {
-    deleteReserva(req.body.data_hora_reservada, req.body.id_utilizador, req.body.id_restaurante, req.body.id_mesa, req.body.data_hora)
+    deleteReserva(req.params.data_hora_reservada, req.params.id_utilizador, req.params.id_restaurante, req.body.id_mesa, req.params.data_hora)
         .then(deleteLog => {
             res.json(deleteLog)
         })
@@ -72,11 +72,8 @@ function create(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, dat
 }
 
 function update(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora, newConfirmacao, newPresenca) {
-    data_hora_reservada = Database.escape(data_hora_reservada);
-    id_utilizador = Database.escape(id_utilizador);
-    id_restaurante = Database.escape(id_restaurante);
+    
     id_mesa = Database.escape(id_mesa);
-    data_hora = Database.escape(data_hora);
     const sql = "UPDATE reserva SET confirmacao = ?, presenca = ? WHERE data_hora_reservada = ? AND id_utilizador = ? AND id_restaurante = ? AND id_mesa = ? AND data_hora = ?";
 
     return Database.query(sql, [newConfirmacao, newPresenca, data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora]);
@@ -84,11 +81,8 @@ function update(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, dat
 }
 
 function deleteReserva(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora) {
-    data_hora_reservada = Database.escape(data_hora_reservada);
-    id_utilizador = Database.escape(id_utilizador);
-    id_restaurante = Database.escape(id_restaurante);
+   
     id_mesa = Database.escape(id_mesa);
-    data_hora = Database.escape(data_hora);
     const sql = "DELETE FROM reserva WHERE data_hora_reservada = ? AND id_utilizador = ? AND id_restaurante = ? AND id_mesa = ? AND data_hora = ?;";
 
     return Database.query(sql, [data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora]);
@@ -108,7 +102,7 @@ function find(data_hora_reservada, id_restaurante, id_mesa) {
 }
 
 function getAllRestauranteReservas(id_restaurante) { //receber todas as reservas de um determinado restaurante para dar render
-    id_restaurante = Database.escape(id_restaurante)
+    
 
     const sql = `SELECT reserva.data_hora_reservada, reserva.id_utilizador, reserva.id_restaurante, reserva.id_mesa, 
     reserva.data_hora, reserva.confirmacao, reserva.presenca, utilizador.user_name, mesa.n_cadeiras  
@@ -120,7 +114,7 @@ function getAllRestauranteReservas(id_restaurante) { //receber todas as reservas
 }
 
 function getAllUtilizadorReservas(id_utilizador) { //receber todas as reservas de um determinado utilizador para dar render
-    id_utilizador = Database.escape(id_utilizador)
+    
 
     const sql = `SELECT reserva.data_hora_reservada, reserva.id_utilizador, reserva.id_restaurante, reserva.id_mesa, 
     reserva.data_hora, reserva.confirmacao, reserva.presenca, restaurante.nome, mesa.n_cadeiras  
@@ -132,8 +126,6 @@ function getAllUtilizadorReservas(id_utilizador) { //receber todas as reservas d
 }
 
 function findNonAvailableTablesIds(data_hora_reservada, id_restaurante) {
-    data_hora_reservada = Database.escape(data_hora_reservada);
-    id_restaurante = Database.escape(id_restaurante);
 
     //se a data_hora_reservada for igual E id_restaurante igual E a reserva está confirmada, o id_mesa dessa
     //reserva está ocupado

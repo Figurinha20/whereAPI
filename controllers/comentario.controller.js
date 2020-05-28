@@ -4,13 +4,13 @@ const Database = require("../database/database");
 
 
 exports.get = (req, res, next) => {
-    getRestaurantComentarios(req.body.id_restaurante).then(result=>{
+    getRestaurantComentarios(req.params.id_restaurante).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 exports.post = (req, res, next) => {
-    createComentario(req.body.id_restaurante, req.body.id_utilizador, req.body.txt_comentario, req.body.rating, req.body.data).then(result=>{
+    createComentario(req.params.id_restaurante, req.body.id_utilizador, req.body.txt_comentario, req.body.rating, req.body.data).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }

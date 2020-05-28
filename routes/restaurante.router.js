@@ -4,8 +4,8 @@ var router=Router();
 
 router.get("/restaurante", RestauranteControllers.get);
 router.post("/restaurante", RestauranteControllers.post);
-router.put("/restaurante", RestauranteControllers.put);
-router.delete("/restaurante", RestauranteControllers.delete);
+router.put("/restaurante/:id_restaurante", RestauranteControllers.put);
+router.delete("/restaurante/:id_restaurante", RestauranteControllers.delete);
 
 module.exports=router;
 

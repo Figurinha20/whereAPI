@@ -18,13 +18,13 @@ exports.post = (req, res, next) => {
 }
 
 exports.put = (req, res, next) => {
-    update(req.body.id_restaurante, req.body.foto_perfil, req.body.informacao, req.body.disponibilidade, req.body.aprovacao).then(result=>{
+    update(req.params.id_restaurante, req.body.foto_perfil, req.body.informacao, req.body.disponibilidade, req.body.aprovacao).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 exports.delete = (req, res, next) => {
-    deleteRestaurante(req.body.id_restaurante).then(result=>{
+    deleteRestaurante(req.params.id_restaurante).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
@@ -85,7 +85,7 @@ function login(email, password){
 }
 
 function update(id_restaurante, foto_perfil, informacao, disponibilidade, aprovacao){
-    id_restaurante=Database.escape(id_restaurante);
+   
     foto_perfil=Database.escape(foto_perfil);
     informacao=Database.escape(informacao);
     disponibilidade=Database.escape(disponibilidade);
@@ -101,7 +101,7 @@ function update(id_restaurante, foto_perfil, informacao, disponibilidade, aprova
 }
 
 function deleteRestaurante(id_restaurante){
-    id_restaurante=Database.escape(id_restaurante);
+    
 
     const sql = "DELETE FROM restaurante WHERE id_restaurante = ?";
     return Database.query(sql, [id_restaurante]).then(res=>{

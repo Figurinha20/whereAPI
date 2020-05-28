@@ -4,25 +4,25 @@ const Database = require("../database/database");
 
 
 exports.get = (req, res, next) => {
-    getRestaurantPratos(req.body.id_restaurante).then(result=>{
+    getRestaurantPratos(req.params.id_restaurante).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 exports.post = (req, res, next) => {
-    createPrato(req.body.id_restaurante, req.body.preco, req.body.desc_prato, req.body.id_categoria).then(result=>{
+    createPrato(req.params.id_restaurante, req.body.preco, req.body.desc_prato, req.body.id_categoria).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 exports.delete = (req, res, next) => {
-    deletePrato(req.body.id_prato).then(result=>{
+    deletePrato(req.params.id_prato).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 function createPrato(id_restaurante, preco, desc_prato, id_categoria){ //Adicionar pratos a um determinado restaurante
-    id_restaurante=Database.escape(id_restaurante);
+    
     preco=Database.escape(preco);
     desc_prato=Database.escape(desc_prato);
     id_categoria=Database.escape(id_categoria)
@@ -37,7 +37,6 @@ function createPrato(id_restaurante, preco, desc_prato, id_categoria){ //Adicion
 }
 
 function getRestaurantPratos(id_restaurante){ //Receber todas os pratos de um determinado restaurante
-    id_restaurante=Database.escape(id_restaurante);
 
     const sql = "SELECT prato.id_prato, prato.desc_prato, prato.preco, categoria.desc_categoria FROM prato INNER JOIN categoria ON prato.id_categoria=categoria.id_categoria WHERE prato.id_restaurante = ?";
     return Database.query(sql, [id_restaurante]).then(res=>{
@@ -46,7 +45,6 @@ function getRestaurantPratos(id_restaurante){ //Receber todas os pratos de um de
 }
 
 function deletePrato(id_prato){
-    id_prato=Database.escape(id_prato);
 
     const sql = "DELETE FROM prato WHERE id_prato = ?;"
     return Database.query(sql, [id_prato]).then(res=>{
