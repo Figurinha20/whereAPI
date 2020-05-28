@@ -3,25 +3,24 @@ const Database = require("../database/database");
 
 
 exports.get = (req, res, next) => {
-    getRestaurantFotos(req.body.id_restaurante).then(result=>{
+    getRestaurantFotos(req.params.id_restaurante).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 exports.post = (req, res, next) => {
-    createFoto(req.body.id_restaurante, req.body.link_foto).then(result=>{
+    createFoto(req.params.id_restaurante, req.body.link_foto).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 exports.delete = (req, res, next) => {
-    deleteFoto(req.body.id_foto).then(result=>{
+    deleteFoto(req.params.id_foto).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
 
 function createFoto(id_restaurante, link_foto){ //Adicionar fotos a um determinado restaurante
-    id_restaurante=Database.escape(id_restaurante);
     link_foto=Database.escape(link_foto);
 
     const sql = `INSERT INTO foto (id_restaurante, link_foto) VALUES (?,?);`
@@ -34,7 +33,6 @@ function createFoto(id_restaurante, link_foto){ //Adicionar fotos a um determina
 }
 
 function getRestaurantFotos(id_restaurante){ //Receber todas as fotos de um determinado restaurante
-    id_restaurante=Database.escape(id_restaurante);
 
     const sql = "SELECT * FROM foto WHERE id_restaurante = ?";
     return Database.query(sql, [id_restaurante]).then(res=>{
@@ -43,7 +41,6 @@ function getRestaurantFotos(id_restaurante){ //Receber todas as fotos de um dete
 }
 
 function deleteFoto(id_foto){
-    id_foto=Database.escape(id_foto);
 
     const sql = "DELETE FROM foto WHERE id_foto = ?;"
     return Database.query(sql, [id_foto]).then(res=>{
