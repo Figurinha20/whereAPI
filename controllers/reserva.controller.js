@@ -111,6 +111,8 @@ function getAllRestauranteReservas(id_restaurante) { //receber todas as reservas
     INNER JOIN utilizador ON reserva.id_utilizador = utilizador.id_utilizador)
     WHERE reserva.id_restaurante = ?`;
     return Database.query(sql, [id_restaurante]);
+
+    //um bocado random mas isto agora está cada row duas vezes e não sei porquê
 }
 
 function getAllUtilizadorReservas(id_utilizador) { //receber todas as reservas de um determinado utilizador para dar render
@@ -123,6 +125,8 @@ function getAllUtilizadorReservas(id_utilizador) { //receber todas as reservas d
     INNER JOIN restaurante ON reserva.id_restaurante = restaurante.id_restaurante)
     WHERE reserva.id_utilizador = ?`;
     return Database.query(sql, [id_utilizador]);
+
+    //esta também dá cada row duas vezes idk man
 }
 
 function findNonAvailableTablesIds(data_hora_reservada, id_restaurante) {
