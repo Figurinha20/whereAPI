@@ -17,7 +17,6 @@ exports.post = (req, res, next) => {
 
 
 function createComentario(id_restaurante, id_utilizador, txt_comentario, rating, data){ //Adicionar comentarios a um determinado restaurante (é preciso ver se o utilizador já foi ao restaurante)
-    id_restaurante=Database.escape(id_restaurante);
     id_utilizador=Database.escape(id_utilizador);
     txt_comentario=Database.escape(txt_comentario);
     rating=Database.escape(rating);
@@ -37,6 +36,7 @@ function createComentario(id_restaurante, id_utilizador, txt_comentario, rating,
 }
 
 function existsReserva(id_utilizador, id_restaurante){ //verificar se o utilizador tem reserva no restaurante e esteved presente
+    
     const sql="SELECT * FROM reserva where id_utilizador = ? AND id_restaurante = ? AND presenca = 1";
     return Database.query(sql, [id_utilizador, id_restaurante]).then(res => {
         return res.length > 0 || res.length === undefined;
@@ -44,7 +44,6 @@ function existsReserva(id_utilizador, id_restaurante){ //verificar se o utilizad
 }
 
 function getRestaurantComentarios(id_restaurante){ //Receber todoss os comentarios de um determinado restaurante (com o nome do utilizador)
-    id_restaurante=Database.escape(id_restaurante);
 
     const sql = `SELECT comentario.txt_comentario, comentario.rating, comentario.data, utilizador.user_name
     FROM comentario INNER JOIN utilizador ON comentario.id_utilizador=utilizador.id_utilizador WHERE comentario.id_restaurante = ?`;
