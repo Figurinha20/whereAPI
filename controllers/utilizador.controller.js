@@ -36,7 +36,8 @@ function create(user_name, email, password){
     const sql = "INSERT INTO utilizador (user_name, email, password, administrador, foto) VALUES (?,?,?,?,?);";
     return existsWithEmail(email).then(exists=>{ //verificar se existe utilizador para esse email
         if(exists===false){//se o user com o email nao existir criar conta
-            return Database.query(sql,[user_name, email, password, false, "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"]);
+            return Database.query(sql,[user_name, email, password, false, "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"])
+            .then(suc =>{ return "Conta criada com sucesso"});
         }else{ // nao cria conta
             return "Conta já Existente";
         }
