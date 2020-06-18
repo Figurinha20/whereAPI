@@ -62,11 +62,11 @@ function login(email, password){
             if(bcrypt.compareSync(password, user.password)){//comparar pass encryptada com a escrita pelo utilizador
                 return user;//true if credentials match
             }else{
-                return undefined;//false if credentials no match
+                return "Password Errada";//false if credentials no match
             };
         }else{
             console.error("CANT FIND USER FOR THAT EMAIL & PASS");
-            return undefined;
+            return "Credenciais Inválidas";
         }
     });
 }
