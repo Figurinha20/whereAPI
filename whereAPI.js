@@ -13,7 +13,8 @@ const FotoRouter = require("./routes/foto.router");
 const MesaRouter = require("./routes/mesa.router");
 const PratoRouter = require ("./routes/prato.router");
 const ReservaRouter = require("./routes/reserva.router");
-const ComentarioRouter = require("./routes/comentario.router")
+const ComentarioRouter = require("./routes/comentario.router");
+const UtilizadorTagRouter = require("./routes/utilizador_tag.router");
 
 const app=express();
 
@@ -32,5 +33,6 @@ app.use(MesaRouter)
 app.use(PratoRouter)
 app.use(ReservaRouter)
 app.use(ComentarioRouter)
+app.use(UtilizadorTagRouter)
 
 app.listen(config.port, () => console.log(config.serverStartMessage, config.host, config.port));

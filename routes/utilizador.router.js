@@ -2,8 +2,8 @@ const Router=require("express").Router;
 const UtilizadorController=require("../controllers/utilizador.controller")
 var router=Router();
 
-router.get("/utilizadores", UtilizadorController.get);
-router.post("/utilizadores", UtilizadorController.post);
+router.post("/utilizadores", UtilizadorController.get);
+router.post("/criarutilizadores", UtilizadorController.post);
 router.put("/utilizadores/:id_utilizador", UtilizadorController.put);
 router.delete("/utilizadores/:id_utilizador", UtilizadorController.delete);
 
