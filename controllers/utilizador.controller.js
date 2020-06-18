@@ -10,6 +10,12 @@ exports.get = (req, res, next) => {
     }).catch(err=>res.json(err));
 }
 
+exports.getUtilizadorById = (req, res, next) => {
+    getUtilizadorById(req.params.id_utilizador).then(result=>{
+        res.json(result);
+    }).catch(err=>res.json(err));
+}
+
 exports.post = (req, res, next) => {
     console.log(req.body);
     create(req.body.user_name, req.body.email, req.body.password).then(result=>{
@@ -106,6 +112,15 @@ function getAllUtilizadores(){
     const sql = "SELECT * FROM utilizador";
     return Database.query(sql);
 }
+
+function getUtilizadorById(id_utilizador){
+
+    const sql = "SELECT * FROM utilizador WHERE id_utilizador = ?"
+    return Database.query(sql, [id_utilizador]).then(res=>{
+        return res;
+    });
+}
+
 
 
 //email, username, password, adress, postal-code, locality ---------------- Restaurante
