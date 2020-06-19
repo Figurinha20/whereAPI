@@ -127,6 +127,6 @@ function getRestauranteById(id_restaurante){
 
     const sql = "SELECT * FROM restaurante WHERE id_restaurante = ?"
     return Database.query(sql, [id_restaurante]).then(res=>{
-        return res;
+        return res[0];
     });
 }

@@ -117,7 +117,7 @@ function getUtilizadorById(id_utilizador){
 
     const sql = "SELECT * FROM utilizador WHERE id_utilizador = ?"
     return Database.query(sql, [id_utilizador]).then(res=>{
-        return res;
+        return res[0];
     });
 }
 
