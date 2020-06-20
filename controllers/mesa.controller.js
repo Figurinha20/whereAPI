@@ -21,7 +21,6 @@ exports.delete = (req, res, next) => {
 }
 
 function createMesa(id_restaurante, n_cadeiras){ //Adicionar mesas a um determinado restaurante
-    n_cadeiras=Database.escape(n_cadeiras);
 
     const sql = `INSERT INTO mesa (id_restaurante, n_cadeiras) VALUES (?,?);`
     return Database.query(sql, [id_restaurante, n_cadeiras]).then(suc=>{

@@ -21,7 +21,6 @@ exports.delete = (req, res, next) => {
 }
 
 function createFoto(id_restaurante, link_foto){ //Adicionar fotos a um determinado restaurante
-    link_foto=Database.escape(link_foto);
 
     const sql = `INSERT INTO foto (id_restaurante, link_foto) VALUES (?,?);`
     return Database.query(sql, [id_restaurante, link_foto]).then(suc=>{

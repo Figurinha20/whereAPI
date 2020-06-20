@@ -17,10 +17,6 @@ exports.post = (req, res, next) => {
 
 
 function createComentario(id_restaurante, id_utilizador, txt_comentario, rating, data){ //Adicionar comentarios a um determinado restaurante (é preciso ver se o utilizador já foi ao restaurante)
-    id_utilizador=Database.escape(id_utilizador);
-    txt_comentario=Database.escape(txt_comentario);
-    rating=Database.escape(rating);
-    data=Database.escape(data);
 
     return existsReserva(id_utilizador, id_restaurante).then(res => {
         if (res==true){

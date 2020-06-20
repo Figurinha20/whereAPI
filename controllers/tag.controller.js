@@ -17,7 +17,7 @@ function getAllTags(){ //Receber todas as tags existentes no site
 
 
 function create(desc_tag) {
-    desc_tag = Database.escape(desc_tag);
+
     const sql = `INSERT INTO tag (desc_tag) VALUES (?)`;
     const sql1 = `SELECT id_tag FROM tag WHERE desc_tag = ?`; //para descobrir o id da tag que foi criada
     return existsTag(desc_tag).then(exists=>{ //verificar se a tag já está na base de dados
@@ -40,6 +40,7 @@ function create(desc_tag) {
 }
 
 function existsTag(desc_tag) {
+    
     const sql = "SELECT * FROM tag WHERE desc_tag = ?";
     return Database.query(sql, [desc_tag]).then(res => {
         return res.length > 0 || res.length === undefined;

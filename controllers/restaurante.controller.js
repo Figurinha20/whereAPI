@@ -37,11 +37,9 @@ exports.delete = (req, res, next) => {
 
 function create(nome, password, morada, cod_postal, localidade, email){
     const cod_postalSave=cod_postal;
-    // nome=Database.escape(nome);
-    password=bcrypt.hashSync(Database.escape(password),SALT_ROUNDS);
-    // morada=Database.escape(morada)
-    // cod_postal=Database.escape(cod_postal)
-    // email=Database.escape(email);
+
+    password=bcrypt.hashSync(password,SALT_ROUNDS);
+
     const sql = `INSERT INTO restaurante (nome, password, foto_perfil, informacao, morada, aprovacao, cod_postal, disponibilidade, email) VALUES (?,?,?,?,?,?,?,?,?);`
     return existsWithEmail(email).then(exists=>{ //verificar se existe utilizador para esse email
         if(exists===false){//se o user com o email nao existir criar conta
@@ -71,8 +69,6 @@ function existsWithEmail(email){
 }
 
 function login(email, password){
-    email=Database.escape(email);
-    password=Database.escape(password);
 
     const sql = "SELECT * FROM restaurante WHERE email = ?";
     return Database.query(sql, [email]).then(res=>{
@@ -91,11 +87,6 @@ function login(email, password){
 }
 
 function update(id_restaurante, foto_perfil, informacao, disponibilidade, aprovacao){
-   
-    foto_perfil=Database.escape(foto_perfil);
-    informacao=Database.escape(informacao);
-    disponibilidade=Database.escape(disponibilidade);
-    aprovacao=Database.escape(aprovacao);
 
     const sql = "UPDATE restaurante SET foto_perfil = ?, informacao = ?, disponibilidade = ?, aprovacao = ? WHERE id_restaurante = ?";
     return Database.query(sql, [foto_perfil, informacao, disponibilidade, aprovacao, id_restaurante]).then(res=>{
@@ -108,7 +99,6 @@ function update(id_restaurante, foto_perfil, informacao, disponibilidade, aprova
 
 function deleteRestaurante(id_restaurante){
     
-
     const sql = "DELETE FROM restaurante WHERE id_restaurante = ?";
     return Database.query(sql, [id_restaurante]).then(res=>{
         if (res.affectedRows > 0){
@@ -119,6 +109,7 @@ function deleteRestaurante(id_restaurante){
 }
 
 function getAllRestaurantes(){
+    
     const sql = "SELECT * FROM restaurante";
     return Database.query(sql);
 }

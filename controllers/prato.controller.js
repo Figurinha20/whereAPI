@@ -22,10 +22,6 @@ exports.delete = (req, res, next) => {
 }
 
 function createPrato(id_restaurante, preco, desc_prato, id_categoria){ //Adicionar pratos a um determinado restaurante
-    
-    preco=Database.escape(preco);
-    desc_prato=Database.escape(desc_prato);
-    id_categoria=Database.escape(id_categoria)
 
     const sql = `INSERT INTO prato (id_restaurante, preco, desc_prato, id_categoria) VALUES (?,?,?,?);`
     return Database.query(sql, [id_restaurante, preco, desc_prato, id_categoria]).then(suc=>{

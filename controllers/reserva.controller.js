@@ -52,11 +52,7 @@ exports.delete = (req, res, next) => {
 
 
 function create(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora) {
-    data_hora_reservada = Database.escape(data_hora_reservada);
-    id_utilizador = Database.escape(id_utilizador);
-    id_restaurante = Database.escape(id_restaurante);
-    id_mesa = Database.escape(id_mesa);
-    data_hora = Database.escape(data_hora);
+
     const sql = "INSERT INTO reserva (data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora, confirmacao, presenca) VALUES (?,?,?,?,?,'p',false);";
 
     return find(data_hora_reservada, id_restaurante, id_mesa).then(reserva => {
@@ -72,8 +68,6 @@ function create(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, dat
 }
 
 function update(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora, newConfirmacao, newPresenca) {
-    data_hora_reservada = Database.escape(data_hora_reservada);
-    data_hora = Database.escape(data_hora)
 
     const sql = "UPDATE reserva SET confirmacao = ?, presenca = ? WHERE data_hora_reservada = ? AND id_utilizador = ? AND id_restaurante = ? AND id_mesa = ? AND data_hora = ?";
 
@@ -82,8 +76,6 @@ function update(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, dat
 }
 
 function deleteReserva(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora) {
-    data_hora_reservada = Database.escape(data_hora_reservada)
-    data_hora = Database.escape(data_hora);
 
     const sql = "DELETE FROM reserva WHERE data_hora_reservada = ? AND id_utilizador = ? AND id_restaurante = ? AND id_mesa = ? AND data_hora = ?;";
 
@@ -92,9 +84,6 @@ function deleteReserva(data_hora_reservada, id_utilizador, id_restaurante, id_me
 
 
 function find(data_hora_reservada, id_restaurante, id_mesa) {
-    data_hora_reservada = Database.escape(data_hora_reservada);
-    id_restaurante = Database.escape(id_restaurante);
-    id_mesa = Database.escape(id_mesa);
 
     const sql = "SELECT * FROM reserva WHERE data_hora_reservada = ? AND id_restaurante = ? AND id_mesa = ?";
     return Database.query(sql, [data_hora_reservada, id_restaurante, id_mesa]).then(res => {
@@ -131,7 +120,6 @@ function getAllUtilizadorReservas(id_utilizador) { //receber todas as reservas d
 function findNonAvailableTablesIds(data_hora_reservada, id_restaurante) {
     //se a data_hora_reservada for igual E id_restaurante igual E a reserva está confirmada, o id_mesa dessa
     //reserva está ocupado
-    data_hora_reservada = Database.escape(data_hora_reservada);
 
     const sql = 'SELECT id_mesa FROM reserva WHERE data_hora_reservada = ? AND id_restaurante = ? AND confirmacao = "c"';
     return Database.query(sql, [data_hora_reservada, id_restaurante]).then(res => {

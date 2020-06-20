@@ -26,7 +26,6 @@ exports.delete = (req, res, next) => {
 }
 
 function createTag(id_restaurante, desc_tag){ //Adicionar tags a um restaurante, cria também a tag na tabela APENAS se não existir!
-    desc_tag=Database.escape(desc_tag)
 
     const sql = `INSERT INTO restaurante_tag (id_restaurante, id_tag, tag_principal) VALUES (?,?,?);`
     return Tag.create(desc_tag).then(created=>{
