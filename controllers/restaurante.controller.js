@@ -37,11 +37,11 @@ exports.delete = (req, res, next) => {
 
 function create(nome, password, morada, cod_postal, localidade, email){
     const cod_postalSave=cod_postal;
-    nome=Database.escape(nome);
+    // nome=Database.escape(nome);
     password=bcrypt.hashSync(Database.escape(password),SALT_ROUNDS);
-    morada=Database.escape(morada)
-    cod_postal=Database.escape(cod_postal)
-    email=Database.escape(email);
+    // morada=Database.escape(morada)
+    // cod_postal=Database.escape(cod_postal)
+    // email=Database.escape(email);
     const sql = `INSERT INTO restaurante (nome, password, foto_perfil, informacao, morada, aprovacao, cod_postal, disponibilidade, email) VALUES (?,?,?,?,?,?,?,?,?);`
     return existsWithEmail(email).then(exists=>{ //verificar se existe utilizador para esse email
         if(exists===false){//se o user com o email nao existir criar conta

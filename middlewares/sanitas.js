@@ -8,4 +8,5 @@ function sanitas(req, res, next) {
 
     next();
 }
+
 module.exports.sanitas = sanitas;

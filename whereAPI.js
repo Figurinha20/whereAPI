@@ -15,13 +15,16 @@ const PratoRouter = require ("./routes/prato.router");
 const ReservaRouter = require("./routes/reserva.router");
 const ComentarioRouter = require("./routes/comentario.router");
 const UtilizadorTagRouter = require("./routes/utilizador_tag.router");
+const {escapadela} = require("./middlewares/escape.js");
 
 const app=express();
 
 // ############# MIDDLEWARES ##################
 app.use(bodyParser.urlencoded({extended : true}));
+app.use(escapadela);
 app.use(bodyParser.json()); //parse ao body para json
-app.use(cors()); //cors para Cross Origin Resource Sharinng entre o API e o front-end
+app.use(cors());
+ //cors para Cross Origin Resource Sharinng entre o API e o front-end
 // app.use(validator); //express-validator para disponiblizar as funções de sanitize
 // app.use(sanitas.sanitas); //sanitizer para não deixar código passar nos inputs
 

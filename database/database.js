@@ -11,4 +11,8 @@ Database.on("error",(error)=>{
 });
 Database.query=util.promisify(Database.query);  //transformar callback para promise para faclitar o uso
 
+
+
+
+
 module.exports = Database;  //Exportar a variavel Database que tem a connection criada
