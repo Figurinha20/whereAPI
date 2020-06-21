@@ -53,8 +53,8 @@ CREATE TABLE IF NOT EXISTS `DATABASE_NAME`.`comentario` (
   `id_utilizador` INT(9) NOT NULL,
   `txt_comentario` VARCHAR(501) NULL,
   `rating` INT(1) NULL,
-  `data` VARCHAR(32) NULL,
-  PRIMARY KEY (`id_restaurante`, `id_utilizador`))
+  `data` VARCHAR(32) NOT NULL,
+  PRIMARY KEY (`id_restaurante`, `id_utilizador`,`data`))
 ENGINE = InnoDB;
 
 

@@ -35,13 +35,14 @@ function existsReserva(id_utilizador, id_restaurante){ //verificar se o utilizad
     
     const sql="SELECT * FROM reserva where id_utilizador = ? AND id_restaurante = ? AND presenca = 1";
     return Database.query(sql, [id_utilizador, id_restaurante]).then(res => {
+        console.log(res)
         return res.length > 0 || res.length === undefined;
     });
 }
 
 function getRestaurantComentarios(id_restaurante){ //Receber todoss os comentarios de um determinado restaurante (com o nome do utilizador)
 
-    const sql = `SELECT comentario.txt_comentario, comentario.rating, comentario.data, utilizador.user_name
+    const sql = `SELECT comentario.txt_comentario, comentario.rating, comentario.data, utilizador.user_name, utilizador.foto
     FROM comentario INNER JOIN utilizador ON comentario.id_utilizador=utilizador.id_utilizador WHERE comentario.id_restaurante = ?`;
     return Database.query(sql, [id_restaurante]).then(res=>{
         return res
