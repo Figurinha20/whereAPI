@@ -58,7 +58,6 @@ function create(data_hora_reservada, id_utilizador, id_restaurante, id_mesa, dat
     return find(data_hora_reservada, id_restaurante, id_mesa).then(reserva => {
         //verificar se existe reserva confirmada para  
         //mesma data_hora_reservada e mesa
-
         if (reserva === undefined) { //se uma reserva confirmada nao existir criar pedido
             return Database.query(sql, [data_hora_reservada, id_utilizador, id_restaurante, id_mesa, data_hora]);
         } else { // nao cria pedido
@@ -85,8 +84,8 @@ function deleteReserva(data_hora_reservada, id_utilizador, id_restaurante, id_me
 
 function find(data_hora_reservada, id_restaurante, id_mesa) {
 
-    const sql = "SELECT * FROM reserva WHERE data_hora_reservada = ? AND id_restaurante = ? AND id_mesa = ?";
-    return Database.query(sql, [data_hora_reservada, id_restaurante, id_mesa]).then(res => {
+    const sql = "SELECT * FROM reserva WHERE data_hora_reservada = ? AND id_restaurante = ? AND id_mesa = ? AND confirmacao = ?";
+    return Database.query(sql, [data_hora_reservada, id_restaurante, id_mesa , "c"]).then(res => {
         const reserva = res[0];
         return reserva;
     });
@@ -96,12 +95,14 @@ function getAllRestauranteReservas(id_restaurante) { //receber todas as reservas
     const sql = `SELECT reserva.data_hora_reservada, reserva.id_utilizador, reserva.id_restaurante, reserva.id_mesa, 
     reserva.data_hora, reserva.confirmacao, reserva.presenca, utilizador.user_name, mesa.n_cadeiras  
     FROM ((reserva
-    INNER JOIN mesa ON reserva.id_restaurante = mesa.id_restaurante)
-    INNER JOIN utilizador ON reserva.id_utilizador = utilizador.id_utilizador)
-    WHERE reserva.id_restaurante = ?`;
-    return Database.query(sql, [id_restaurante]);
+    INNER JOIN mesa 
+    ON reserva.id_mesa = mesa.id_mesa)
+    INNER JOIN utilizador 
+    ON reserva.id_utilizador = utilizador.id_utilizador)
+    WHERE reserva.id_restaurante = ? AND mesa.id_restaurante = ?`;
+    return Database.query(sql, [id_restaurante,id_restaurante]);
 
-    //um bocado random mas isto agora está cada row duas vezes e não sei porquê
+
 }
 
 function getAllUtilizadorReservas(id_utilizador) { //receber todas as reservas de um determinado utilizador para dar render
@@ -109,12 +110,13 @@ function getAllUtilizadorReservas(id_utilizador) { //receber todas as reservas d
     const sql = `SELECT reserva.data_hora_reservada, reserva.id_utilizador, reserva.id_restaurante, reserva.id_mesa, 
     reserva.data_hora, reserva.confirmacao, reserva.presenca, restaurante.nome, mesa.n_cadeiras  
     FROM ((reserva
-    INNER JOIN mesa ON reserva.id_restaurante = mesa.id_restaurante)
-    INNER JOIN restaurante ON reserva.id_restaurante = restaurante.id_restaurante)
+    INNER JOIN mesa 
+    ON reserva.id_mesa = mesa.id_mesa)
+    INNER JOIN restaurante 
+    ON reserva.id_restaurante = restaurante.id_restaurante)
     WHERE reserva.id_utilizador = ?`;
     return Database.query(sql, [id_utilizador]);
 
-    //esta também dá cada row duas vezes idk man
 }
 
 function findNonAvailableTablesIds(data_hora_reservada, id_restaurante) {
