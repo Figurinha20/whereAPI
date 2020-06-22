@@ -1,4 +1,5 @@
 const Database = require("../database/database");
+const { response } = require("express");
 
 exports.get = (req, res, next) => {
     getAllTags().then(result=>{
@@ -23,15 +24,15 @@ function create(desc_tag) {
     return existsTag(desc_tag).then(exists=>{ //verificar se a tag já está na base de dados
         if(exists===false){ //se o a tag não existir, criar
             return Database.query(sql, [desc_tag]).then(suc=>{
-                return Database.query(sql1,[desc_tag]).then(suc=>{
-                    return [true, res[0]] 
+                return Database.query(sql1,[desc_tag]).then(res=>{
+                    return [true, res[0]]
                     //se a tag foi criada, enviar true e enviar o id da tag
                 }) 
             })
         }
         else{
-            return Database.query(sql1,[desc_tag]).then(suc=>{
-                return [false, res[0]] 
+            return Database.query(sql1,[desc_tag]).then(res=>{
+                return [false, res[0]]
                 //se a tag não foi criada, enviar false e o id da tag 
             }) 
         }

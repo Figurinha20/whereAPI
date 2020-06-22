@@ -130,7 +130,7 @@ function getRestauranteById(id_restaurante){
 
 function getRestauranteCards(){
 
-    const sql = `select Trestaurante.id_restaurante, restaurante.nome, restaurante.foto_perfil, tag.desc_tag, avg(comentario.rating) as media_ratings from restaurante
+    const sql = `select restaurante.id_restaurante, restaurante.nome, restaurante.foto_perfil, tag.desc_tag, avg(comentario.rating) as media_ratings from restaurante
 	inner join comentario
 	on (restaurante.id_restaurante = comentario.id_restaurante)
 	inner join restaurante_tag
@@ -138,7 +138,7 @@ function getRestauranteCards(){
 	inner join tag
 	on (restaurante_tag.id_tag = tag.id_tag)
 	where restaurante_tag.tag_principal = true
-	group by comentario.id_restaurante
+	group by comentario.id_restaurante, tag.id_tag
     order by media_ratings desc`
     return Database.query(sql).then(res=>{
         return res;

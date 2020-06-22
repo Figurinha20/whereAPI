@@ -3,7 +3,7 @@ const RestauranteTagControllers=require("../controllers/restaurante_tag.controll
 var router=Router();
 
 router.get("/restaurantes/:id_restaurante/tags", RestauranteTagControllers.get);
-router.post("/restaurantes/:id_restaurante/tags/:id_tag", RestauranteTagControllers.post);
+router.post("/restaurantes/:id_restaurante/tags", RestauranteTagControllers.post);
 router.put("/restaurantes/:id_restaurante/tags/:id_tag", RestauranteTagControllers.put);
 router.delete("/restaurantes/:id_restaurante/tags/:id_tag", RestauranteTagControllers.delete);
 

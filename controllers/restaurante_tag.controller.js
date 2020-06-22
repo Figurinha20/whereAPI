@@ -28,14 +28,15 @@ exports.delete = (req, res, next) => {
 function createTag(id_restaurante, desc_tag){ //Adicionar tags a um restaurante, cria também a tag na tabela APENAS se não existir!
 
     const sql = `INSERT INTO restaurante_tag (id_restaurante, id_tag, tag_principal) VALUES (?,?,?);`
+    console.log(id_restaurante,desc_tag)
     return Tag.create(desc_tag).then(created=>{
         if (created[0] === false){
-            return Database.query(sql,[id_restaurante, created[1], false]).then(suc=>{
+            return Database.query(sql,[id_restaurante, created[1].id_tag, false]).then(suc=>{
                 return "Categoria Adicionada"
             })
         }
         else{
-            return Database.query(sql,[id_restaurante, created[1], false]).then(suc=>{
+            return Database.query(sql,[id_restaurante, created[1].id_tag, false]).then(suc=>{
                 return "Categoria Criada"
             })
         }
