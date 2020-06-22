@@ -16,6 +16,12 @@ exports.getRestauranteById = (req, res, next) => {
     }).catch(err=>res.json(err));
 }
 
+exports.getRestauranteCards = (req, res, next) => {
+    getRestauranteCards().then(result=>{
+        res.json(result);
+    }).catch(err=>res.json(err));
+}
+
 exports.post = (req, res, next) => {
     console.log(req.body);
     create(req.body.nome, req.body.password, req.body.morada, req.body.cod_postal, req.body.localidade, req.body.email).then(result=>{
@@ -120,4 +126,21 @@ function getRestauranteById(id_restaurante){
     return Database.query(sql, [id_restaurante]).then(res=>{
         return res[0];
     });
+}
+
+function getRestauranteCards(){
+
+    const sql = `select Trestaurante.id_restaurante, restaurante.nome, restaurante.foto_perfil, tag.desc_tag, avg(comentario.rating) as media_ratings from restaurante
+	inner join comentario
+	on (restaurante.id_restaurante = comentario.id_restaurante)
+	inner join restaurante_tag
+	on (restaurante.id_restaurante = restaurante_tag.id_restaurante)
+	inner join tag
+	on (restaurante_tag.id_tag = tag.id_tag)
+	where restaurante_tag.tag_principal = true
+	group by comentario.id_restaurante
+    order by media_ratings desc`
+    return Database.query(sql).then(res=>{
+        return res;
+    })
 }
