@@ -15,6 +15,8 @@ const PratoRouter = require ("./routes/prato.router");
 const ReservaRouter = require("./routes/reserva.router");
 const ComentarioRouter = require("./routes/comentario.router");
 const UtilizadorTagRouter = require("./routes/utilizador_tag.router");
+const RestauranteTagRouter = require("./routes/restaurante_tag.router");
+const TagRouter = require("./routes/tag.router");
 const {escapadela} = require("./middlewares/escape.js");
 
 const app=express();
@@ -37,5 +39,7 @@ app.use(PratoRouter)
 app.use(ReservaRouter)
 app.use(ComentarioRouter)
 app.use(UtilizadorTagRouter)
+app.use(RestauranteTagRouter)
+app.use(TagRouter)
 
 app.listen(config.port, () => console.log(config.serverStartMessage, config.host, config.port));
