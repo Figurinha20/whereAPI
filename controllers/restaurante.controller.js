@@ -47,6 +47,8 @@ function create(nome, password, morada, cod_postal, localidade, email){
     password=bcrypt.hashSync(password,SALT_ROUNDS);
 
     const sql = `INSERT INTO restaurante (nome, password, foto_perfil, informacao, morada, aprovacao, cod_postal, disponibilidade, email) VALUES (?,?,?,?,?,?,?,?,?);`
+    const sql1 = `SELECT id_restaurante FROM restaurante WHERE email = ?`
+    const sql2 = `INSERT INTO restaurante_tag (id_restaurante, id_tag, tag_principal) VALUES (?,?,?);`
     return existsWithEmail(email).then(exists=>{ //verificar se existe utilizador para esse email
         if(exists===false){//se o user com o email nao existir criar conta
             return Database.query(sql,[nome, password, "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png", "Adicionar Informações Relevantes", morada, false, cod_postal, true, email])
@@ -54,11 +56,20 @@ function create(nome, password, morada, cod_postal, localidade, email){
                 if (suc !== undefined){
                     return Codigopostal.create(cod_postalSave, localidade).then(created=>{
                         if(created===true){
-                            return "Conta criada com Sucesso | Código Postal criado com Sucesso"
+                            return Database.query(sql1,[email]).then(res=>{
+                                return Database.query(sql2,[res[0].id_restaurante, 1, 1]).then(resp=>{
+                                    return "Conta criada com Sucesso | Código Postal criado com Sucesso" 
+                                })                                                   
+                            })
                         }
-                        else{return "Conta criada com Sucesso | Código Postal já Existente"}
-                    })
-
+                        else{
+                            return Database.query(sql1,[email]).then(res=>{
+                                return Database.query(sql2,[res[0].id_restaurante, 1, 1]).then(resp=>{
+                                    return "Conta criada com Sucesso | Código Postal já Existente"
+                                })                                                   
+                            })                     
+                        }
+                    })               
                 }
             });
         }else{ // nao cria conta
@@ -130,16 +141,13 @@ function getRestauranteById(id_restaurante){
 
 function getRestauranteCards(){
 
-    const sql = `select restaurante.id_restaurante, restaurante.nome, restaurante.foto_perfil, tag.desc_tag, avg(comentario.rating) as media_ratings from restaurante
-	inner join comentario
-	on (restaurante.id_restaurante = comentario.id_restaurante)
+    const sql = `select restaurante.id_restaurante, restaurante.nome, restaurante.foto_perfil, tag.desc_tag from restaurante
 	inner join restaurante_tag
 	on (restaurante.id_restaurante = restaurante_tag.id_restaurante)
 	inner join tag
 	on (restaurante_tag.id_tag = tag.id_tag)
-	where restaurante_tag.tag_principal = true
-	group by comentario.id_restaurante, tag.id_tag
-    order by media_ratings desc`
+	where restaurante_tag.tag_principal = true and restaurante.aprovacao = true
+	group by restaurante.id_restaurante, tag.id_tag`
     return Database.query(sql).then(res=>{
         return res;
     })
