@@ -141,11 +141,13 @@ function getRestauranteById(id_restaurante){
 
 function getRestauranteCards(){
 
-    const sql = `select restaurante.id_restaurante, restaurante.nome, restaurante.foto_perfil, tag.desc_tag from restaurante
+    const sql = `select restaurante.id_restaurante, restaurante.nome, restaurante.foto_perfil, tag.desc_tag, codigo_postal.localidade from restaurante
 	inner join restaurante_tag
 	on (restaurante.id_restaurante = restaurante_tag.id_restaurante)
 	inner join tag
-	on (restaurante_tag.id_tag = tag.id_tag)
+    on (restaurante_tag.id_tag = tag.id_tag)
+    inner join codigo_postal
+    on (restaurante.cod_postal = codigo_postal.cod_postal)
 	where restaurante_tag.tag_principal = true and restaurante.aprovacao = true
 	group by restaurante.id_restaurante, tag.id_tag`
     return Database.query(sql).then(res=>{
