@@ -26,7 +26,7 @@ function createComentario(id_restaurante, id_utilizador, txt_comentario, rating,
             })
         }
         else{
-            return "Não tem Permição para Comentar neste Restaurante"
+            return "Não tem Permissão para Comentar neste Restaurante"
         }
     })
 }
