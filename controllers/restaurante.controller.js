@@ -148,7 +148,7 @@ function getRestauranteCards(){
     on (restaurante_tag.id_tag = tag.id_tag)
     inner join codigo_postal
     on (restaurante.cod_postal = codigo_postal.cod_postal)
-	where restaurante_tag.tag_principal = true and restaurante.aprovacao = true
+	where restaurante_tag.tag_principal = true and restaurante.aprovacao = true and restaurante.disponibilidade = true
 	group by restaurante.id_restaurante, tag.id_tag`
     return Database.query(sql).then(res=>{
         return res;
