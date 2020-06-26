@@ -22,6 +22,12 @@ exports.getRestauranteCards = (req, res, next) => {
     }).catch(err=>res.json(err));
 }
 
+exports.getAllRestaurantes = (req, res, next) => {
+    getAllRestaurantes().then(result=>{
+        res.json(result);
+    }).catch(err=>res.json(err));
+}
+
 exports.post = (req, res, next) => {
     console.log(req.body);
     create(req.body.nome, req.body.password, req.body.morada, req.body.cod_postal, req.body.localidade, req.body.email).then(result=>{
