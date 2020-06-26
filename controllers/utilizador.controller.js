@@ -24,7 +24,7 @@ exports.post = (req, res, next) => {
 }
 
 exports.put = (req, res, next) => {
-    update(req.params.id_utilizador, req.body.user_name, req.body.email, req.body.foto, req.body.numero_tel).then(result=>{
+    update(req.params.id_utilizador, req.body.user_name, req.body.email, req.body.foto, req.body.numero_tel, req.body.administrador).then(result=>{
         res.json(result);
     }).catch(err=>res.json(err));
 }
@@ -74,12 +74,12 @@ function login(email, password){
     });
 }
 
-function update(id_utilizador, user_name, email, foto, numero_tel){
+function update(id_utilizador, user_name, email, foto, numero_tel, administrador){
     
     if (numero_tel == "NULL") numero_tel = undefined
 
-    const sql = "UPDATE utilizador SET user_name = ?, email = ?, foto = ?, numero_tel = ? WHERE id_utilizador = ?";
-    return Database.query(sql, [user_name, email, foto, numero_tel, id_utilizador]).then(res=>{
+    const sql = "UPDATE utilizador SET user_name = ?, email = ?, foto = ?, numero_tel = ?, administrador = ? WHERE id_utilizador = ?";
+    return Database.query(sql, [user_name, email, foto, numero_tel, id_utilizador, administrador]).then(res=>{
         if(res.affectedRows > 0){
             return "Mudanças Salvas"
         }
