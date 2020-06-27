@@ -133,19 +133,19 @@ function deleteRestaurante(id_restaurante){
 
 function getAllRestaurantes(){
     
-    const sql = "SELECT * FROM restaurante";
-    return Database.query(sql);
-}
-
-function getRestauranteById(id_restaurante){
-
     const sql = `SELECT restaurante.id_restaurante, restaurante.nome, restaurante.email,
     restaurante.password, restaurante.informacao, restaurante.foto_perfi,
     restaurante.morada, restaurante.aprovacao, restaurante.cod_postal,
     restaurante.disponibilidade, codigo_postal.localidade FROM restaurante
     INNER JOIN codigo_postal
     ON (restaurante.cod_postal = codigo_postal.cod_postal)
-    WHERE id_restaurante = ?`
+    WHERE id_restaurante = ?`;
+    return Database.query(sql);
+}
+
+function getRestauranteById(id_restaurante){
+
+    const sql = "SELECT * FROM restaurante WHERE id_restaurante = ?"
     return Database.query(sql, [id_restaurante]).then(res=>{
         return res[0];
     });
