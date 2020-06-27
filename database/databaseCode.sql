@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `DATABASE_NAME`.`restaurante` (
   `id_restaurante` INT(7) NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   `password` VARCHAR(64) NULL,
-  `foto_perfil` VARCHAR(80) NULL,
+  `foto_perfil` VARCHAR(1000) NULL,
   `informacao` VARCHAR(1000) NULL,
   `morada` VARCHAR(45) NULL,
   `aprovacao` TINYINT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `DATABASE_NAME`.`utilizador` (
   `email` VARCHAR(30) NULL,
   `password` VARCHAR(64) NULL,
   `administrador` TINYINT NULL,
-  `foto` VARCHAR(200) NULL,
+  `foto` VARCHAR(800) NULL,
   `numero_tel` INT(9) NULL,
   PRIMARY KEY (`id_utilizador`))
 ENGINE = InnoDB;
@@ -111,7 +111,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `DATABASE_NAME`.`foto` (
   `id_foto` INT(7) NOT NULL AUTO_INCREMENT,
   `id_restaurante` INT(7) NOT NULL,
-  `link_foto` VARCHAR(256) NULL,
+  `link_foto` VARCHAR(800) NULL,
   PRIMARY KEY (`id_foto`, `id_restaurante`))
 ENGINE = InnoDB;
 
