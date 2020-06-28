@@ -1,3 +1,4 @@
+const mysql = require("mysql");
 let dbConfig;
 let Database;
 if(process.env.NODE_ENV === "production" || process.env.NODE_ENV === "PROD" ){
@@ -19,7 +20,7 @@ if(process.env.NODE_ENV === "production" || process.env.NODE_ENV === "PROD" ){
     Database=mysql.createPool(dbConfig);
 }
  //Importar configuração da base de dados
-const mysql = require("mysql"); //bilbioteca de mysql https://www.npmjs.com/package/mysql
+ //bilbioteca de mysql https://www.npmjs.com/package/mysql
 const util = require("util");
 console.log(process.env.HOST,process.env.USER,process.env.PASSWORD,process.env.DATABASE,process.env.PORT,process.env.NODE_ENV)
 
