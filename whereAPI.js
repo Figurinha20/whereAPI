@@ -41,5 +41,7 @@ app.use(ComentarioRouter)
 app.use(UtilizadorTagRouter)
 app.use(RestauranteTagRouter)
 app.use(TagRouter)
-
+app.get("/",function(req,res,next){
+    res.json("ok")
+})
 app.listen(config.port, () => console.log(config.serverStartMessage,config.port));
