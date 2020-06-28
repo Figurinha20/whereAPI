@@ -10,6 +10,7 @@ if(process.env.NODE_ENV === "production" || process.env.NODE_ENV === "PROD" ){
         connectTimeout  : 3600000,
         acquireTimeout  : 3600000,
         timeout         : 3600000,
+        debug:true,
         multipleStatements: true      
     }
 }else{
