@@ -7,9 +7,9 @@ if(process.env.NODE_ENV === "production" || process.env.NODE_ENV === "PROD" ){
         password: process.env.PASSWORD,
         database: process.env.DATABASE,
         port: process.env.PORT,
-        connectTimeout  : 3600000,
-        acquireTimeout  : 3600000,
-        timeout         : 3600000,
+        connectTimeout  : 15000,
+        acquireTimeout  : 15000,
+        timeout         : 15000,
         debug:true,
         multipleStatements: true      
     }
