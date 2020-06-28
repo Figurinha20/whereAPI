@@ -1,1 +1,1 @@
- web: node whereAPI.js;
+ web: npm start;
