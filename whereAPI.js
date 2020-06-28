@@ -42,4 +42,4 @@ app.use(UtilizadorTagRouter)
 app.use(RestauranteTagRouter)
 app.use(TagRouter)
 
-app.listen(config.port, () => console.log(config.serverStartMessage, config.host, config.port));
+app.listen(config.port, () => console.log(config.serverStartMessage,config.port));
