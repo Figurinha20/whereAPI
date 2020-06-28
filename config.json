@@ -1,5 +1,5 @@
 {
     "host":"localhost",
-    "port":3000,
+    "port":8080,
     "serverStartMessage":"Example app listening at http://%s:%s"
 }
