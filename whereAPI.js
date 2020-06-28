@@ -6,6 +6,7 @@ const validator = require('express-validator');
 const sanitas = require("./middlewares/sanitas.js");
 
 const config = require("./config.json");
+const PORT = process.env.PORT || 5000
 //routes
 const UtilizadorRouter = require("./routes/utilizador.router");
 const RestauranteRouter = require("./routes/restaurante.router");
@@ -44,4 +45,4 @@ app.use(TagRouter)
 app.get("/",function(req,res,next){
     res.json("ok")
 })
-app.listen(config.port, () => console.log(config.serverStartMessage,config.port));
+app.listen(PORT, () => console.log(config.serverStartMessage,PORT));

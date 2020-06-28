@@ -7,7 +7,7 @@ if(process.env.NODE_ENV === "production" || process.env.NODE_ENV === "PROD" ){
         user: process.env.USER,
         password: process.env.PASSWORD,
         database: process.env.DATABASE,
-        port: process.env.PORT,
+        port: process.env.MYSQL_PORT,
         connectTimeout  : 15000,
         acquireTimeout  : 15000,
         timeout         : 15000,
